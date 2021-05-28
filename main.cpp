@@ -18,88 +18,10 @@ void checkSpeed() {
     GPIO_PinState sw2 = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_8);
     GPIO_PinState sw3 = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_10);
     GPIO_PinState sw4 = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_12);
+    /* Переводи двоичное значение с переключателей дополнительного модуля в десятичную СИ что бы понять на сколько умножать T */
     int s = (1 * sw4) + (2 * sw3) + (2 * 2 * sw2) + (2 * 2 * 2 * sw1);
+
     WRITE_REG(TIM7_ARR, start_value + (s * 50));
-//    /* 0x0 */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_RESET &&
-//    sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x1  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value + (1 * 50));
-//    }
-//    /* 0x2  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value + (2 * 50));
-//    }
-//    /* 0x3  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value + 150);
-//    }
-//    /* 0x4  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value + 200);
-//    }
-//    /* 0x5  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value + 250);
-//    }
-//    /* 0x6  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x7  */
-//    if (sw1 == GPIO_PIN_RESET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x8  */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x9  */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x10 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x11 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_RESET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x12 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x13 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_RESET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x14 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_RESET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
-//    /* 0x15 */
-//    if (sw1 == GPIO_PIN_SET && sw2 == GPIO_PIN_SET &&
-//        sw3 == GPIO_PIN_SET && sw4 == GPIO_PIN_SET) {
-//        WRITE_REG(TIM7_ARR, start_value);
-//    }
 }
 
 /* функция обработчик прерывания (горение) */
@@ -144,10 +66,8 @@ int umain() {
     WRITE_REG(TIM7_DIER, TIM_DIER_UIE);
     WRITE_REG(TIM7_PSC, 0);
 
-//    while (1) {
         WRITE_REG(TIM6_CR1, TIM_CR1_CEN);
         WRITE_REG(TIM7_CR1, TIM_CR1_CEN);
-//    }
 
 
     return 0;
